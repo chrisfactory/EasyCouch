@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv bash
+
+_term() {
+  echo "Caught SIGTERM signal!"
+  killall -TERM rtorrent 2>/dev/null
+}
+
+trap _term SIGTERM
+
+screen -D -m -S \
+rtorrent s6-setuidgid abc /usr/bin/rtorrent \
+-n -o import=/config/rtorrent/rtorrent.rc &
+
+wait
