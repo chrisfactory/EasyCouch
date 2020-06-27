@@ -10,8 +10,8 @@ networks:
 services:
   nginx-web:
     image: nginx
-    labels:
-        com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+    labels: 
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
     container_name: ${NGINX_WEB:-nginx-web}
     restart: unless-stopped 
     ports:
@@ -77,61 +77,3 @@ services:
       options:
         max-size: ${NGINX_LETSENCRYPT_LOG_MAX_SIZE:-2m}
         max-file: ${NGINX_LETSENCRYPT_LOG_MAX_FILE:-10}
-
-
-  grafana:    
-    image: grafana/grafana
-    container_name: grafana-stack
-    environment: 
-      # VIRTUAL_PORT: 3000
-      VIRTUAL_HOST: graf.localhost
-      LETSENCRYPT_HOST: graf.localhost
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL} 
-    # restart: always  
-    #     --env "VIRTUAL_HOST=othersubdomain.yourdomain.tld" \
-    #     --env "VIRTUAL_PORT=3000" \
-    #     --env "LETSENCRYPT_HOST=othersubdomain.yourdomain.tld" \
-    #     --env "LETSENCRYPT_EMAIL=mail@yourdomain.tld" \
-  couchpotato:
-    build: ./CouchPotato
-    image: chrisfactory/couchpotato
-    container_name: couchpotato.stack 
-    environment:
-      TZ: ${TZ}
-      PUID: ${UID}
-      PGID: ${GID}
-      UMASK_SET: 022
-      VIRTUAL_HOST: couchpotato.localhost
-      LETSENCRYPT_HOST: couchpotato.localhost
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-    # volumes:
-    #   - ${APP_CONFIG_DIR}/simplifychill.conf/couchpotato:/config
-    #   - ${DOWNLOADS_DIR}:/downloads 
-      # - ..:/movies 
-    # ports:
-    #   - 5060:5050
-    restart: unless-stopped
-
-
-
-  rutorrent:
-    build: ./RuTorrent
-    image: chrisfactory/rutorrent
-    container_name: rutorrent.stack
-    environment: 
-      TZ: ${TZ}
-      PUID: ${UID}
-      PGID: ${GID} 
-      LETSENCRYPT_HOST: rutorrent.localhost
-      VIRTUAL_HOST: rutorrent.localhost
-      # VIRTUAL_PORT: 5080
-    # volumes:
-    #   - ${APP_DIR}/rutorrent:/config:rw
-    #   - ${DOWNLOADS_DIR}:/downloads:rw
-    ports:
-      # - 5050:80
-      - 5051:5000
-      - 5052:51413
-      - 5053:6881/udp
-    restart: unless-stopped
-  
