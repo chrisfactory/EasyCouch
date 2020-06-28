@@ -7,7 +7,7 @@ networks:
 services:
  
   couchpotato:
-    build: ./CouchPotato
+    build: ./couchpotato
     image: chrisfactory/couchpotato
     container_name: couchpotato.stack 
     environment:
@@ -30,7 +30,7 @@ services:
 
 
   rutorrent:
-    build: ./RuTorrent
+    build: ./rutorrent
     image: chrisfactory/rutorrent
     container_name: rutorrent.stack
     environment: 
