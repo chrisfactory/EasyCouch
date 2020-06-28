@@ -22,15 +22,15 @@ docker-compose -f "./easycouch-stack/docker-compose.yml" down
 cd easycouch-stack
 ls -l
 mkdir -p $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
-# chgrp -R 101 $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
-# chmod -R g+rwx $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
+chgrp -R 101 $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
+chmod -R g+rwx $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
 cd ../easycouch-web-server
 ls -l
 mkdir -p $APP_DIR/web-server{/conf.d,/vhost.d,/html,/certs,/htpasswd}
-# chgrp -R 101 $APP_DIR/web-server \
-#              $APP_DIR/web-server{/conf.d,/vhost.d,/html,/certs,/htpasswd}
-# chmod -R g+rwx $APP_DIR/web-server \
-#                $APP_DIR/web-server{/conf.d,/vhost.d,/html,/certs,/htpasswd} 
+chgrp -R 101 $APP_DIR/web-server \
+             $APP_DIR/web-server{/conf.d,/vhost.d,/html,/certs,/htpasswd}
+chmod -R g+rwx $APP_DIR/web-server \
+               $APP_DIR/web-server{/conf.d,/vhost.d,/html,/certs,/htpasswd} 
 cd ..
 
 
