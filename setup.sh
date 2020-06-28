@@ -16,7 +16,8 @@ fi
     # exit 1
 # fi
 
-
+docker-compose -f "./easycouch-web-server/docker-compose.yml" down
+docker-compose -f "./easycouch-stack/docker-compose.yml" down
 
 cd easycouch-stack
 ls -l
@@ -35,10 +36,8 @@ cd ..
 
 
 
-docker-compose -f "./easycouch-web-server/docker-compose.yml" down
+
 docker-compose -f "./easycouch-web-server/docker-compose.yml" up -d --build
- 
-docker-compose -f "./easycouch-stack/docker-compose.yml" down
 docker-compose -f "./easycouch-stack/docker-compose.yml" up -d --build
 
 
