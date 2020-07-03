@@ -34,9 +34,6 @@ chmod -R g+rwx $APP_DIR/web-server \
 cd ..
 
 
-
-
-
 docker-compose -f "./easycouch-web-server/docker-compose.yml" up -d --build
 docker-compose -f "./easycouch-stack/docker-compose.yml" up -d --build
 
@@ -47,7 +44,7 @@ docker-compose -f "./easycouch-stack/docker-compose.yml" up -d --build
 # mkdir -p \
 # 	/config{/log/rtorrent,/log/rutorrent,/rtorrent/rtorrent_sess,/rutorrent/settings/users} \
 # 	/config/rutorrent/profiles{/settings,/torrents,/users,/tmp} \
-# 	/downloads{/completed,/incoming,/watched,/done}/{/CP.Movies,/SK.TV} \
+# 	/downloads{/completed,/incoming,/watched,/done}/{/Movies,/TV} \
 # 	/run/php
 # echo $APP_DIR
 # mkdir -p $APP_DIR/apps{/couchpotato2/jellyfin}

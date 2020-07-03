@@ -4,7 +4,7 @@
 mkdir -p \
 	/config{/log/rtorrent,/log/rutorrent,/rtorrent/rtorrent_sess,/rutorrent/settings/users} \
 	/config/rutorrent/profiles{/settings,/torrents,/users,/tmp} \
-	/downloads{/completed,/incoming,/watched,/done}/{/CP.Movies,/SK.TV} \
+	/downloads{/completed,/incoming,/watched,/done}/{/Movies,/TV} \
 	/run/php
 # cp /defaults/settings/* /config/rutorrent/profile/settings/
 # cp /defaults/settings/* /config/rutorrent/settings/
@@ -37,7 +37,7 @@ cp -pr /config/rutorrent/settings/* /app/rutorrent/conf/
 chown abc:abc \
 	/downloads \
 	/downloads{/completed,/incoming,/watched,/done} \
-	/downloads{/completed,/incoming,/watched,/done}/{/CP.Movies,/SK.TV}
+	/downloads{/completed,/incoming,/watched,/done}/{/Movies,/TV}
 chown -R abc:abc \
 	/config \
 	/run \

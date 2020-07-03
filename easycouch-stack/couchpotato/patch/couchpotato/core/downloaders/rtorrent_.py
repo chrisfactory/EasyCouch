@@ -394,7 +394,7 @@ config = [{
                 {
                     'name': 'label',
                     'order': 9,
-                    'default': 'CP.Movies',
+                    'default': 'Movies',
                     'description': 'Label to apply on added torrents.',
                 },
                 {
@@ -402,7 +402,7 @@ config = [{
                     'order': 10,
                     'type': 'directory',
                     'description': 'Download to this directory. Keep empty for default rTorrent download directory.',
-                    'default': '/downloads/incoming/CP.Movies'
+                    'default': '/downloads/incoming/Movies'
                 },
                 {
                     'name': 'remove_complete',

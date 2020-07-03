@@ -1385,13 +1385,13 @@ config = [{
                     'name': 'from',
                     'type': 'directory',
                     'description': 'Folder where CP searches for movies.',
-                    'default': '/downloads/completed/CP.Movies'
+                    'default': '/downloads/completed/Movies'
                 },
                 {
                     'name': 'to',
                     'type': 'directory',
                     'description': 'Default folder where the movies are moved/copied/linked to.',
-                    'default': '/downloads/done/CP.Movies'
+                    'default': '/downloads/done/Movies'
                 },
                 {
                     'name': 'folder_name',

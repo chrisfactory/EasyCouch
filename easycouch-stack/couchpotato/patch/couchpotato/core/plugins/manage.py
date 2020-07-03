@@ -292,7 +292,7 @@ config = [{
                     'name': 'library',
                     'type': 'directories',
                     'description': 'Folder where the movies should be moved to.',
-                    'default':'/downloads/done/CP.Movies'
+                    'default':'/downloads/done/Movies'
                      
                 },
                 {
