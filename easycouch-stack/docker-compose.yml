@@ -18,13 +18,13 @@ services:
       VIRTUAL_HOST: ${COUCHPOTATO_URL}
       LETSENCRYPT_HOST: ${COUCHPOTATO_URL}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      VIRTUAL_PORT: 5060
+      VIRTUAL_PORT: 5050
     volumes:
       - ${APP_DIR}/couchpotato:/config:rw
       - ${DOWNLOADS_DIR}:/downloads:rw
       # - ..:/movies 
     ports:
-      - 5060:5050
+      - 5050:5050
     restart: unless-stopped
 
 
@@ -38,18 +38,18 @@ services:
       PUID: ${UID}
       PGID: ${GID}
       UMASK_SET: 022 #optional
-      LETSENCRYPT_HOST: ${RUTORRENT_URL}
       VIRTUAL_HOST: ${RUTORRENT_URL}
+      LETSENCRYPT_HOST: ${RUTORRENT_URL}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      VIRTUAL_PORT: 5050
+      VIRTUAL_PORT: 80
     volumes:
       - ${APP_DIR}/rutorrent:/config:rw
       - ${DOWNLOADS_DIR}:/downloads:rw
     ports:
-      - 5050:80
-      - 5051:5000
-      - 5052:51413
-      - 5053:6881/udp
+      - 5060:80
+      - 5061:5000
+      - 5062:51413
+      - 5063:6881/udp
     restart: unless-stopped
   
 
