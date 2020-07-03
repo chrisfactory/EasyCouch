@@ -3,11 +3,9 @@
 # sudo sh -c "echo -n '[username]:' >> ${NGINX_FILES_PATH}/htpasswd/${VIRTUAL_HOST}"
 # sudo sh -c "openssl passwd -apr1 >> ${NGINX_FILES_PATH}/htpasswd/${VIRTUAL_HOST}"
 
- 
-# 1. Check if .env file exists
+  
 if [ -e .env ]; 
-then
-    echo "yop"
+then 
     source .env
 fi
 # else 
@@ -19,18 +17,25 @@ fi
 docker-compose -f "./easycouch-web-server/docker-compose.yml" down
 docker-compose -f "./easycouch-stack/docker-compose.yml" down
 
-cd easycouch-stack
-ls -l
+cd easycouch-stack 
 mkdir -p $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
 chgrp -R 101 $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
 chmod -R g+rwx $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
-cd ../easycouch-web-server
-ls -l
+cd ../easycouch-web-server 
+
 mkdir -p $APP_DIR/web-server{/conf.d,/vhost.d,/html,/certs,/htpasswd}
 chgrp -R 101 $APP_DIR/web-server \
              $APP_DIR/web-server{/conf.d,/vhost.d,/html,/certs,/htpasswd}
 chmod -R g+rwx $APP_DIR/web-server \
                $APP_DIR/web-server{/conf.d,/vhost.d,/html,/certs,/htpasswd} 
+
+
+echo  username ??
+read username
+echo It\'s nice to meet you $username  
+sh -c "echo -n "$username:" >> $APP_DIR/web-server/htpasswd/${RUTORRENT_URL}"
+sh -c "openssl passwd -apr1 >> $APP_DIR/web-server/htpasswd/${RUTORRENT_URL}"
+
 cd ..
 
 
@@ -38,7 +43,8 @@ docker-compose -f "./easycouch-web-server/docker-compose.yml" up -d --build
 docker-compose -f "./easycouch-stack/docker-compose.yml" up -d --build
 
 
-    
+ 
+   
 # chown abc:abc $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
  
 # mkdir -p \
