@@ -18,9 +18,9 @@ docker-compose -f "./easycouch-web-server/docker-compose.yml" down
 docker-compose -f "./easycouch-stack/docker-compose.yml" down
 
 cd easycouch-stack 
-mkdir -p $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
-chgrp -R 101 $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
-chmod -R g+rwx $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin}
+mkdir -p $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin,/radarr,/headphones,/lidarr,/portainer}
+chgrp -R 101 $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin,/radarr,/headphones,/lidarr,/portainer}
+chmod -R g+rwx $APP_DIR{/rutorrent,/couchpotato,/sickchill,/plex,/jellyfin,/radarr,/headphones,/lidarr,/portainer}
 cd ../easycouch-web-server 
 
 mkdir -p $APP_DIR/web-server{/conf.d,/vhost.d,/html,/certs,/htpasswd}
@@ -30,11 +30,11 @@ chmod -R g+rwx $APP_DIR/web-server \
                $APP_DIR/web-server{/conf.d,/vhost.d,/html,/certs,/htpasswd} 
 
 
-echo  username ??
-read username
-echo It\'s nice to meet you $username  
-sh -c "echo -n "$username:" >> $APP_DIR/web-server/htpasswd/${RUTORRENT_URL}"
-sh -c "openssl passwd -apr1 >> $APP_DIR/web-server/htpasswd/${RUTORRENT_URL}"
+# echo  username ??
+# read username
+# echo It\'s nice to meet you $username  
+# sh -c "echo -n "$username:" >> $APP_DIR/web-server/htpasswd/${RUTORRENT_URL}"
+# sh -c "openssl passwd -apr1 >> $APP_DIR/web-server/htpasswd/${RUTORRENT_URL}"
 
 cd ..
 

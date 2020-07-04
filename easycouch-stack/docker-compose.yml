@@ -1,11 +1,12 @@
+##=> Mopidy
+
 version: "3"
 networks:  
   default:
     external:
       name: ${SERVICE_NETWORK:-webservices} 
-
 services:
- 
+ #########################  Movies  ########################################
   couchpotato:
     build: ./couchpotato
     image: chrisfactory/couchpotato
@@ -14,7 +15,7 @@ services:
       TZ: ${TZ}
       PUID: ${UID}
       PGID: ${GID}
-      UMASK_SET: 022
+      UMASK_SET: ${UMASK_SET}
       VIRTUAL_HOST: ${COUCHPOTATO_URL}
       LETSENCRYPT_HOST: ${COUCHPOTATO_URL}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
@@ -27,6 +28,107 @@ services:
       - 5050:5050
     restart: unless-stopped
 
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr.stack
+    environment:
+      TZ: ${TZ}
+      PUID: ${UID}
+      PGID: ${GID}
+      UMASK_SET: ${UMASK_SET}
+      VIRTUAL_HOST: ${RADARR_URL}
+      LETSENCRYPT_HOST: ${RADARR_URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}  
+      VIRTUAL_PORT: 7878
+    volumes:
+      - ${APP_DIR}/radarr:/config:rw 
+    #   - /path/to/movies:/movies
+    #   - /path/to/downloadclient-downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+#########################  Series  ########################################
+  sickchill: 
+    image: linuxserver/sickchill
+    container_name: sickchill.stack
+    environment:
+      TZ: ${TZ}
+      PUID: ${UID}
+      PGID: ${GID}
+      UMASK_SET: ${UMASK_SET}
+      LETSENCRYPT_HOST: ${SICKCHILL_URL}
+      VIRTUAL_HOST: ${SICKCHILL_URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      VIRTUAL_PORT: 8081
+    volumes:
+      - ${APP_DIR}/sickchill:/config:rw
+      - ${DOWNLOADS_DIR}:/downloads:rw
+      # -v <path to tv-shows>:/tv   
+    ports:
+      - 8081:8081
+    restart: unless-stopped  
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr.stack
+    environment:
+      TZ: ${TZ}
+      PUID: ${UID}
+      PGID: ${GID}
+      UMASK_SET: ${UMASK_SET}
+      VIRTUAL_HOST: ${SONARR_URL}
+      LETSENCRYPT_HOST: ${SONARR_URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}  
+      VIRTUAL_PORT: 8989
+    # volumes:
+    #   - /path/to/data:/config
+    #   - /path/to/tvseries:/tv
+    #   - /path/to/downloadclient-downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+#########################  Music  ########################################
+  headphones:
+    image: linuxserver/headphones
+    container_name: headphones.stack
+    environment:
+      TZ: ${TZ}
+      PUID: ${UID}
+      PGID: ${GID}
+      UMASK_SET: ${UMASK_SET}
+      VIRTUAL_HOST: ${HEADPHONES_URL}
+      LETSENCRYPT_HOST: ${HEADPHONES_URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}  
+      VIRTUAL_PORT: 8181
+    volumes:
+      - ${APP_DIR}/headphones:/config:rw
+    #   - /path/to/downloads:/downloads
+    #   - /path/to/music:/music
+    ports:
+      - 8181:8181
+    restart: unless-stopped   
+
+  lidarr:
+    image: linuxserver/lidarr
+    container_name: lidarr.stack
+    environment:
+      TZ: ${TZ}
+      PUID: ${UID}
+      PGID: ${GID}
+      UMASK_SET: ${UMASK_SET}
+      VIRTUAL_HOST: ${LIDARR_URL}
+      LETSENCRYPT_HOST: ${LIDARR_URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}  
+      VIRTUAL_PORT: 8181
+    volumes:
+      - ${APP_DIR}/lidarr:/config:rw
+      # - /path/to/music:/music
+      # - /path/to/downloads:/downloads
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+
 
 
   rutorrent:
@@ -37,7 +139,7 @@ services:
       TZ: ${TZ}
       PUID: ${UID}
       PGID: ${GID}
-      UMASK_SET: 022 #optional
+      UMASK_SET: ${UMASK_SET}
       VIRTUAL_HOST: ${RUTORRENT_URL}
       LETSENCRYPT_HOST: ${RUTORRENT_URL}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
@@ -53,25 +155,7 @@ services:
     restart: unless-stopped
   
 
-  sickchill: 
-    image: linuxserver/sickchill
-    container_name: sickchill.stack
-    environment:
-      TZ: ${TZ}
-      PUID: ${UID}
-      PGID: ${GID}
-      UMASK_SET: 022
-      LETSENCRYPT_HOST: ${SICKCHILL_URL}
-      VIRTUAL_HOST: ${SICKCHILL_URL}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      VIRTUAL_PORT: 8081
-    volumes:
-      - ${APP_DIR}/sickchill:/config:rw
-      - ${DOWNLOADS_DIR}:/downloads:rw
-      # -v <path to tv-shows>:/tv   
-    ports:
-      - 8081:8081
-    restart: unless-stopped 
+
 
   plex:
     image: linuxserver/plex
@@ -80,7 +164,7 @@ services:
       TZ: ${TZ}
       PUID: ${UID}
       PGID: ${GID}
-      UMASK_SET: 022  
+      UMASK_SET: ${UMASK_SET} 
       VERSION: docker
       VIRTUAL_HOST: ${PLEX_URL}
       LETSENCRYPT_HOST: ${PLEX_URL}
@@ -117,7 +201,7 @@ services:
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL} 
       VIRTUAL_PORT: 8096
     volumes:
-      - ${APP_DIR}/jellyfin:/config
+        - ${APP_DIR}/jellyfin:/config
     #   - /path/to/tvseries:/data/tvshows
     #   - /path/to/movies:/data/movies
     #   - /opt/vc/lib:/opt/vc/lib #optional
@@ -130,4 +214,44 @@ services:
     #   - /dev/video10:/dev/video10 #optional
     #   - /dev/video11:/dev/video11 #optional
     #   - /dev/video12:/dev/video12 #optional
+    restart: unless-stopped
+
+
+#########################  Monitoring  ########################################
+  netdata:
+    image: netdata/netdata
+    container_name: netdata.stack
+    # hostname: example.com # set to fqdn of host
+    environment:
+      VIRTUAL_HOST: ${NETDATA_URL}
+      LETSENCRYPT_HOST: ${NETDATA_URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL} 
+      VIRTUAL_PORT: 19999
+    ports:
+      - 19999:19999
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    # volumes:
+    #   - /proc:/host/proc:ro
+    #   - /sys:/host/sys:ro
+    #   - /var/run/docker.sock:/var/run/docker.sock:ro  
+    restart: unless-stopped
+
+  portainer:
+    image: portainer/portainer
+    container_name: portainer.stack 
+    environment:
+      VIRTUAL_HOST: ${PORTAINER_URL}
+      LETSENCRYPT_HOST: ${PORTAINER_URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL} 
+      VIRTUAL_PORT: 9000
+    ports:
+      - "9000:9000"
+    # command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${APP_DIR}/portainer:/data:rw
+    #   - portainer_data:/data 
     restart: unless-stopped

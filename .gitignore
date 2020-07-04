@@ -1,6 +1,9 @@
  
 local/
-
+**/bin/
+**/obj/
+**/.vs/
+**/*.csproj.user
 *.stackdump
 
  

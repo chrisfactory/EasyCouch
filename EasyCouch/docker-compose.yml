@@ -1,0 +1,12 @@
+version: "3"
+services:
+  easycouch: 
+    # image: chrisfactory/EasyCouch
+    container_name: easy.couch.stack 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 9080:80
+      - 9443:443 
+    # restart: unless-stopped

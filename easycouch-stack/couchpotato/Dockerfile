@@ -10,7 +10,7 @@ RUN mkdir -p /app/couchpotato
 FROM lsiobase/alpine:3.12 AS gitSrc
 WORKDIR /src 
 RUN apk add --no-cache git
-RUN git clone https://github.com/CouchPotato/CouchPotatoServer.git couchpotato
+RUN git clone https://github.com/Cyberden/CouchPotatoServer.git couchpotato
 RUN git clone https://github.com/linuxserver/docker-couchpotato.git dockercouchpotato
 WORKDIR "/src"
 
